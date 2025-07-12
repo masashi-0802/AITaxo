@@ -4,10 +4,10 @@ package com.example.aitaxo.controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
-import com.example.aitaxo.model.MLModel;
-import com.example.aitaxo.repository.MLModelRepository;
-import com.example.aitaxo.repository.TagRepository;
-import com.example.aitaxo.repository.PaperRepository;
+import com.example.AITaxo.model.MLModel.java;
+import com.example.AITaxo.repository.MLModelRepository.java;
+import com.example.AITaxo.repository.TagRepository.java;
+import com.example.AITaxo.repository.PaperRepository.java;
 
 @RestController
 @RequestMapping("/mlmodels")
