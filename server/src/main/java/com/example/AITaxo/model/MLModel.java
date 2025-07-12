@@ -1,8 +1,6 @@
-// server/src/main/java/com/example/aitaxo/model/MLModel.java
 package com.example.aitaxo.model;
 
-import javax.persistence.*;
-import java.util.List;
+import jakarta.persistence.*;
 
 @Entity
 public class MLModel {
@@ -13,17 +11,20 @@ public class MLModel {
 
     private String name;
 
+    private String fullName;
+
     @Column(length = 1000)
     private String explain;
 
     // 多対多は使えないため、JPA管理外の構造に変更（@ManyToMany削除）
-    @Transient
+    // @Transient
+    @ManyToMany
     private Tag[] tags;
 
-    @Transient
+    // @Transient
+    @ManyToMany
     private Thesis[] theses;
 
-    @Transient
     private String[] presentations;
 
     public MLModel() {
@@ -32,6 +33,7 @@ public class MLModel {
     public MLModel(Long id, String name, String fullName, String explain, Tag[] tags, Thesis[] theses, String[] presentations) {
         this.id = id;
         this.name = name;
+        this.fullName = fullName;
         this.explain = explain;
         this.tags = tags;
         this.theses = theses;
@@ -76,7 +78,7 @@ public class MLModel {
         this.name = name;
     }
 
-    public String setFullName(String fullName) {
+    public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 

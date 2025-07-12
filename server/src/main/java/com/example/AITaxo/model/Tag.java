@@ -1,19 +1,19 @@
-// server/src/main/java/com/example/aitaxo/model/Tag.java
 package com.example.aitaxo.model;
 
-import javax.persistence.*;
-import java.util.List;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 @Entity
 public class Tag {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String fullName;
+
+    @ManyToOne
     private Thesis firstThesis;
-    private MLModel mlmodel;
 
     public Tag() {
+
     }
 
     public Tag(Long id, String name, Thesis firstThesis, String fullName) {

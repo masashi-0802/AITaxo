@@ -8,10 +8,12 @@ import com.example.aitaxo.model.MLModel;
 import com.example.aitaxo.repository.MLModelRepository;
 import com.example.aitaxo.repository.TagRepository;
 import com.example.aitaxo.repository.PaperRepository;
+import reactor.core.publisher.Flux;
 
 @RestController
-@RequestMapping("/mlmodels")
-@CrossOrigin(origins = "http://131.113.48.144:8081")  // フロントエンドからのアクセスを許可
+// @RequestMapping("/mlmodels")
+// @CrossOrigin(origins = "http://131.113.48.144:8081")  // フロントエンドからのアクセスを許可
+@CrossOrigin(origins = "http://localhost:3000")
 public class MLModelController {
 
     @Autowired
@@ -22,8 +24,8 @@ public class MLModelController {
     private PaperRepository paperRepo;
 
     // (1) 全MLモデルの取得 + フィルタ（タグ名 or モデル名による絞り込み）
-    @GetMapping
-    public Flux<MLModel> getModels(@RequestParam(required=false) String tag,
+    @GetMapping("/mlmodels")
+    public Flux<Object> getModels(@RequestParam(required=false) String tag,
                                    @RequestParam(required=false) String name) {
         if (tag != null && !tag.isEmpty()) {
            List<MLModel> filtered = modelRepo.findByTags_Name(tag);
@@ -36,27 +38,26 @@ public class MLModelController {
         }
         // フィルタなし：全件返す
         return Flux.fromIterable(modelRepo.findAll());
-
     }
 
     // (2) 新規MLモデルの追加
-    @PostMapping("/create/mlmodels")
-    public MLModel createModel(@RequestBody CreateModelRequest req) {
-        // リクエストDTOにはモデル名・説明・関連タグIDs・関連論文IDs・URLリスト等が含まれる
-        MLModel model = new MLModel();
-        model.setName(req.getName());
-        model.setExplain(req.getExplain());
-        // 関連タグ・論文をIDリストから取得して設定
-        if (req.getTagIds() != null) {
-            model.setTags(tagRepo.findAllById(req.getTagIds()));
-        }
-        if (req.getThesesIds() != null) {
-            model.setTheses(paperRepo.findAllById(req.getThesisIds()));
-        }
-        model.setPresentations(req.getPresentations());
-        // 保存（save後、生成されたIDや関連も含めて返す）
-        return modelRepo.save(model);
-    }
+    // @PostMapping("/create/mlmodels")
+    // public MLModel createModel(@RequestBody CreateModelRequest req) {
+    //     // リクエストDTOにはモデル名・説明・関連タグIDs・関連論文IDs・URLリスト等が含まれる
+    //     MLModel model = new MLModel();
+    //     model.setName(req.getName());
+    //     model.setExplain(req.getExplain());
+    //     // 関連タグ・論文をIDリストから取得して設定
+    //     if (req.getTagIds() != null) {
+    //         model.setTags(tagRepo.findAllById(req.getTagIds()));
+    //     }
+    //     if (req.getThesesIds() != null) {
+    //         model.setTheses(paperRepo.findAllById(req.getThesisIds()));
+    //     }
+    //     model.setPresentations(req.getPresentations());
+    //     // 保存（save後、生成されたIDや関連も含めて返す）
+    //     return modelRepo.save(model);
+    // }
 
     // (3) MLモデルの削除
     @DeleteMapping("/remove/mlmodel/{id}")

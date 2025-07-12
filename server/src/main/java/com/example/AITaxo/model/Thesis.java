@@ -1,12 +1,9 @@
-// server/src/main/java/com/example/aitaxo/model/Paper.java
 package com.example.aitaxo.model;
 
-import javax.persistence.*;
-import java.util.List;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 @Entity
-public class Paper {
+public class Thesis {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String doi;
@@ -14,6 +11,7 @@ public class Paper {
     private String authors;
 
     public Thesis() {
+
     }
 
     public Thesis(Long id, String doi, String title, String authors) {
