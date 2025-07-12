@@ -50,24 +50,29 @@ export default function ModelListPage() {
       <SearchForm />
       {/* モデルの一覧表示 */}
       <ul className="grid grid-cols-2 md:grid-cols-1 gap-5">
-        {models.map(model => (
-          <li key={model.id} className="flex justify-between px-4 py-4 border rounded-2xl">
-            <div className="flex-1 pr-4">
-              <h3 className="text-xl font-bold">{model.name}</h3>
-              <p>{model.explain}</p>
-              <p>タグ: {model.tags.map(t => t.name).join(", ")}</p>
-              <p>論文: {model.theses.map(t => t.title).join(", ")}</p>
-              <p>資料: {model.presentations.join(", ")}</p>
-            </div>
+        { 
+        Array.isArray(models) ? 
+          models.map(model => (
+            <li key={model.id} className="flex justify-between px-4 py-4 border rounded-2xl">
+              <div className="flex-1 pr-4">
+                <h3 className="text-xl font-bold">{model.name}</h3>
+                <p>{model.explain}</p>
+                <p>タグ: {model.tags.map(t => t.name).join(", ")}</p>
+                <p>論文: {model.theses.map(t => t.title).join(", ")}</p>
+                <p>資料: {model.presentations.join(", ")}</p>
+              </div>
 
-            <Link href="/edit/mlmodel">
-              <Image src={editImage} alt="edit" width="64" height="64" />
-            </Link>
-            <Link href="/remove/mlmodel">
-              <Image src={removeImage} alt="remove" width="64" height="64" />
-            </Link>
-          </li>
-        ))}
+              <Link href="/edit/mlmodel">
+                <Image src={editImage} alt="edit" width="64" height="64" />
+              </Link>
+              <Link href="/remove/mlmodel">
+                <Image src={removeImage} alt="remove" width="64" height="64" />
+              </Link>
+            </li>
+          ))
+        :
+        <></>
+        }
       </ul>
     </div>
   );
