@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Link from 'next/link';
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,6 +28,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <header className="p-4 bg-gray-800 text-white flex justify-between items-center">
+          <h1 className="text-xl font-bold">AITaxo</h1>
+          <nav className="space-x-4">
+            <Link href="/">View MLModels</Link>
+            <Link href="/tags">Tags</Link>
+            <Link href="/thesis">Thesis</Link>
+          </nav>
+        </header>
         {children}
       </body>
     </html>
