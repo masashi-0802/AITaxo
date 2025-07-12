@@ -69,13 +69,17 @@
 # API
 - リクエスト
     - MLモデルの取得
-    - `/mlmodels/tag=CNN, name=GCN`
+      - `/mlmodels/tag=CNN, name=GCN`
       - クライアントからは、絞り込み情報を含めてGET。
       - サーバは、それに応じてMLモデルの情報をJSON形式で送信する。
     - タグ/論文一覧
       - `/tags`, `/theses`
       - クライアントからは、tags/thesisとしてGET。
       - サーバは、タグ/論文のリストをJSON形式で送信する。
+    - MLモデル, タグ, 論文編集
+      - `/create/mlmodel`, `/create/tag`, `/create/thesis`
+      - クライアントがフォームを入力し、POST。
+      - サーバはDBに反映。反映後のMLモデル/タグ/論文のリストをJSON形式で送信する。
     - MLモデル, タグ, 論文編集
       - `/edit/mlmodel`, `/edit/tag`, `/edit/thesis`
       - クライアントがフォームを入力し、POST。
