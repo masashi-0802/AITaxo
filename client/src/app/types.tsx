@@ -6,7 +6,11 @@ export type Tag = {
     firstThesis: Thesis;
     mlmodel: MLModel;
 };
-export type Thesis = { id: number; title: string; };
+export type Thesis = {
+    id: number;
+    title: string;
+    doi: string;
+};
 export type MLModel = { 
   id: number;
   name: string;
