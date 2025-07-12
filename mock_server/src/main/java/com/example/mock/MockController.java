@@ -14,6 +14,8 @@ public class MockController {
 
     @GetMapping("/mlmodels")
     public Flux<Object> getMlModels() {
+        Thesis gruThesis = new Thesis(1L, "10.1000/xyz123", "Efficient GRU", "Author A, Author B");
+        Thesis transThesis = new Thesis(2L, "10.1000/xyz456", "Attention is All You Need", "Vaswani et al.");
         List<MLModel> models = Arrays.asList(
             new MLModel(
                 1L,
@@ -21,11 +23,9 @@ public class MockController {
                 "Gated Recurrent Unit",
                 "コンパクトなLSTM",
                 new Tag[]{
-                    new Tag(1L, "RNN", "Recurrent Neural Network", null)
+                    new Tag(1L, "RNN", "Recurrent Neural Network", gruThesis)
                 },
-                new Thesis[]{
-                    new Thesis(1L, "10.1000/xyz123", "Efficient GRU", "Author A, Author B")
-                },
+                new Thesis[]{ gruThesis },
                 new String[]{}
             ),
             new MLModel(
@@ -34,12 +34,10 @@ public class MockController {
                 "",
                 "Attentionによるシーケンス処理",
                 new Tag[]{
-                    new Tag(2L, "Attention", "", null),
-                    new Tag(3L, "NLP", "Natural Language Processing", null)
+                    new Tag(2L, "Attention", "", transThesis),
+                    new Tag(3L, "NLP", "Natural Language Processing", transThesis)
                 },
-                new Thesis[]{
-                    new Thesis(2L, "10.1000/xyz456", "Attention is All You Need", "Vaswani et al.")
-                },
+                new Thesis[]{ transThesis },
                 new String[]{"ICLR2023"}
             ),
             new MLModel(
@@ -48,7 +46,7 @@ public class MockController {
                 "Convolutional Neural Network",
                 "画像認識に特化したネットワーク",
                 new Tag[]{
-                    new Tag(4L, "Vision", "", null)
+                    new Tag(4L, "Vision", "", gruThesis)
                 },
                 new Thesis[]{
                     new Thesis(3L, "10.1000/xyz789", "Convolutional Networks", "LeCun et al.")
@@ -62,49 +60,15 @@ public class MockController {
 
     @GetMapping("/tags")
     public Flux<Object> getTags() {
-        List<MLModel> models = Arrays.asList(
-            new MLModel(
-                1L,
-                "GRU",
-                "Gated Recurrent Unit",
-                "コンパクトなLSTM",
-                new Tag[]{
-                    new Tag(1L, "RNN", "Recurrent Neural Network", null)
-                },
-                new Thesis[]{
-                    new Thesis(1L, "10.1000/xyz123", "Efficient GRU", "Author A, Author B")
-                },
-                new String[]{}
-            ),
-            new MLModel(
-                2L,
-                "Transformer",
-                "",
-                "Attentionによるシーケンス処理",
-                new Tag[]{
-                    new Tag(2L, "Attention", "", null),
-                    new Tag(3L, "NLP", "Natural Language Processing", null)
-                },
-                new Thesis[]{
-                    new Thesis(2L, "10.1000/xyz456", "Attention is All You Need", "Vaswani et al.")
-                },
-                new String[]{"ICLR2023"}
-            ),
-            new MLModel(
-                3L,
-                "CNN",
-                "Convolutional neural network",
-                "画像認識に特化したネットワーク",
-                new Tag[]{
-                    new Tag(4L, "Vision", null, null)
-                },
-                new Thesis[]{
-                    new Thesis(3L, "10.1000/xyz789", "Convolutional Networks", "LeCun et al.")
-                },
-                new String[]{"CVPR2022"}
-            )
+        Thesis gruThesis = new Thesis(1L, "10.1000/xyz123", "Efficient GRU", "Author A, Author B");
+        List<Tag> tags = Arrays.asList(
+            new Tag[]{
+                new Tag(1L, "RNN", "Recurrent Neural Network", gruThesis),
+                new Tag(2L, "Attention", "", gruThesis),
+                new Tag(3L, "NLP", "Natural Language Processing", gruThesis),
+            }
         );
 
-        return Flux.fromArray(models.toArray());
+        return Flux.fromArray(tags.toArray());
     }
 }
