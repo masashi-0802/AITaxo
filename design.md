@@ -52,6 +52,8 @@
   - 編集
   - 削除
 
+<img width="100%" src="README_assets/ui_design.jpg">
+
 # リポジトリ構成
 - server
   - Spring プログラム
@@ -59,3 +61,21 @@
   - Next.js プログラム
 - docker-compose.yml
 - README.md
+
+# アーキテクチャ設計
+<img width="100%" src="README_assets/architecture.jpg">
+
+# API
+- リクエスト
+    - MLモデルの取得
+      - クライアントからは、絞り込み情報を含めてGET。
+      - サーバは、それに応じてMLモデルの情報をJSON形式で送信する。
+    - タグ/論文一覧
+      - クライアントからは、tags/thesisとしてGET。
+      - サーバは、タグ/論文のリストをJSON形式で送信する。
+    - MLモデル, タグ, 論文編集
+      - クライアントがフォームを入力し、POST。
+      - サーバはDBに反映。反映後のMLモデル/タグ/論文のリストをJSON形式で送信する。
+    - MLモデル, タグ, 論文削除
+      - クライアントが、対象の情報を含めてDELETEリクエスト。
+      - サーバは削除し、反映後のMLモデル/タグ/論文のリストをJSON形式で送信する。
