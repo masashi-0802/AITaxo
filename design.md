@@ -52,6 +52,8 @@
   - 編集
   - 削除
 
+<img width="50" src="README_assets/ui_design.jpg">
+
 # リポジトリ構成
 - server
   - Spring プログラム
@@ -59,6 +61,9 @@
   - Next.js プログラム
 - docker-compose.yml
 - README.md
+
+# アーキテクチャ設計
+<img width="50" src="README_assets/architecture.jpg">
 
 # API
 - リクエスト
