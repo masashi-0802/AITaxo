@@ -1,17 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from 'next/link';
 
-// 型定義（TypeScript）: APIからのJSON構造に合わせる
-type Tag = { id: number; name: string; };
-type Thesis = { id: number; title: string; };
-type MLModel = { 
-  id: number;
-  name: string;
-  explain: string;
-  tags: Tag[];
-  theses: Thesis[];
-  presentations: string[];
-};
+import editImage from "@/../public/edit.png";
+import removeImage from "@/../public/remove.png";
+
+import { MLModel } from "./types";
 
 export default function ModelListPage() {
   const [models, setModels] = useState<MLModel[]>([]);
@@ -65,14 +60,23 @@ export default function ModelListPage() {
         <button onClick={handleAdd}>追加</button>
       </div>
       {/* モデルの一覧表示 */}
-      <ul>
+      <ul className="grid grid-cols-2 md:grid-cols-1 gap-5">
         {models.map(model => (
-          <li key={model.id}>
-            <h3>{model.name}</h3>
-            <p>{model.explain}</p>
-            <p>{model.tags.map(t => t.name).join(", ")}</p>
-            <p>{model.theses.map(t => t.title).join(", ")}</p>
-            <p>{model.presentations.join(", ")}</p>
+          <li key={model.id} className="flex justify-between px-4 py-4 border rounded-2xl">
+            <div className="flex-1 pr-4">
+              <h3 className="text-xl font-bold">{model.name}</h3>
+              <p>{model.explain}</p>
+              <p>タグ: {model.tags.map(t => t.name).join(", ")}</p>
+              <p>論文: {model.theses.map(t => t.title).join(", ")}</p>
+              <p>資料: {model.presentations.join(", ")}</p>
+            </div>
+
+            <Link href="/edit/mlmodel">
+              <Image src={editImage} alt="edit" width="64" height="64" />
+            </Link>
+            <Link href="/remove/mlmodel">
+              <Image src={removeImage} alt="remove" width="64" height="64" />
+            </Link>
           </li>
         ))}
       </ul>
