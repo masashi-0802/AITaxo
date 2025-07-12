@@ -23,44 +23,45 @@ public class MLModelController {
 
     // (1) 全MLモデルの取得 + フィルタ（タグ名 or モデル名による絞り込み）
     @GetMapping
-    public List<MLModel> getModels(@RequestParam(required=false) String tag,
+    public Flux<MLModel> getModels(@RequestParam(required=false) String tag,
                                    @RequestParam(required=false) String name) {
         if (tag != null && !tag.isEmpty()) {
-            // タグ名でフィルタ
-            return modelRepo.findByTags_Name(tag);
-        } 
+           List<MLModel> filtered = modelRepo.findByTags_Name(tag);
+           return filtered.isEmpty() ? Flux.empty() : Flux.fromIterable(filtered);
+        }
+
         if (name != null && !name.isEmpty()) {
-            // モデル名でフィルタ（部分一致）
-            return modelRepo.findByNameContaining(name);
+           List<MLModel> filtered = modelRepo.findByNameContaining(name);
+           return filtered.isEmpty() ? Flux.empty() : Flux.fromIterable(filtered);
         }
         // フィルタなし：全件返す
-        return modelRepo.findAll();
+        return Flux.fromIterable(modelRepo.findAll());
+
     }
 
-    // (2) 新規MLモデルの登録
-    @PostMapping
+    // (2) 新規MLモデルの追加
+    @PostMapping("/create/mlmodels")
     public MLModel createModel(@RequestBody CreateModelRequest req) {
         // リクエストDTOにはモデル名・説明・関連タグIDs・関連論文IDs・URLリスト等が含まれる
         MLModel model = new MLModel();
         model.setName(req.getName());
-        model.setDescription(req.getDescription());
+        model.setExplain(req.getExplain());
         // 関連タグ・論文をIDリストから取得して設定
         if (req.getTagIds() != null) {
             model.setTags(tagRepo.findAllById(req.getTagIds()));
         }
-        if (req.getPaperIds() != null) {
-            model.setPapers(paperRepo.findAllById(req.getPaperIds()));
+        if (req.getThesesIds() != null) {
+            model.setTheses(paperRepo.findAllById(req.getThesisIds()));
         }
-        model.setPresentationUrls(req.getPresentationUrls());
+        model.setPresentations(req.getPresentations());
         // 保存（save後、生成されたIDや関連も含めて返す）
         return modelRepo.save(model);
     }
 
     // (3) MLモデルの削除
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/remove/mlmodel/{id}")
     public void deleteModel(@PathVariable Long id) {
         modelRepo.deleteById(id);
     }
 
-    // （必要に応じてPUT/PATCHで更新処理も実装可能）
 }
