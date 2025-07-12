@@ -7,6 +7,8 @@ import editImage from "@/../public/edit.png";
 import removeImage from "@/../public/remove.png";
 
 import { MLModel } from "./types";
+import SearchForm from "./components/searchForm";
+import { url } from "./consts";
 
 export default function ModelListPage() {
   const [models, setModels] = useState<MLModel[]>([]);
@@ -15,7 +17,7 @@ export default function ModelListPage() {
 
   // コンポーネント初期表示時にモデル一覧を取得
   useEffect(() => {
-    fetch("http://localhost:8081/mlmodels")  // Spring BootのAPIを呼ぶ
+    fetch(`${url}/mlmodels`)  // Spring BootのAPIを呼ぶ
       .then(res => res.json())
       .then(data => setModels(data))
       .catch(err => console.error(err));
@@ -45,20 +47,7 @@ export default function ModelListPage() {
   return (
     <div>
       <h1>MLモデル一覧</h1>
-      {/* 新規モデル追加フォーム */}
-      <div style={{ marginBottom: "1rem" }}>
-        <input 
-          value={name} 
-          onChange={e => setName(e.target.value)} 
-          placeholder="モデル名" 
-        />
-        <input 
-          value={desc} 
-          onChange={e => setDesc(e.target.value)} 
-          placeholder="説明" 
-        />
-        <button onClick={handleAdd}>追加</button>
-      </div>
+      <SearchForm />
       {/* モデルの一覧表示 */}
       <ul className="grid grid-cols-2 md:grid-cols-1 gap-5">
         {models.map(model => (
