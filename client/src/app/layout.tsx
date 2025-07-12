@@ -31,9 +31,10 @@ export default function RootLayout({
         <header className="p-4 bg-gray-800 text-white flex justify-between items-center">
           <h1 className="text-xl font-bold">AITaxo</h1>
           <nav className="space-x-4">
-            <Link href="/">View MLModels</Link>
+            <Link href="/">MLModels</Link>
             <Link href="/tags">Tags</Link>
-            <Link href="/thesis">Thesis</Link>
+            <Link href="/theses">Theses</Link>
+            <Link href="/append">Append</Link>
           </nav>
         </header>
         {children}
