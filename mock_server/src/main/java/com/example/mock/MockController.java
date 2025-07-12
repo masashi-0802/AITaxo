@@ -18,9 +18,10 @@ public class MockController {
             new MLModel(
                 1L,
                 "GRU",
+                "Gated Recurrent Unit",
                 "コンパクトなLSTM",
                 new Tag[]{
-                    new Tag(1L, "RNN", null, null)
+                    new Tag(1L, "RNN", "Recurrent Neural Network", null)
                 },
                 new Thesis[]{
                     new Thesis(1L, "10.1000/xyz123", "Efficient GRU", "Author A, Author B")
@@ -30,10 +31,11 @@ public class MockController {
             new MLModel(
                 2L,
                 "Transformer",
+                "",
                 "Attentionによるシーケンス処理",
                 new Tag[]{
-                    new Tag(2L, "Attention", null, null),
-                    new Tag(3L, "NLP", null, null)
+                    new Tag(2L, "Attention", "", null),
+                    new Tag(3L, "NLP", "Natural Language Processing", null)
                 },
                 new Thesis[]{
                     new Thesis(2L, "10.1000/xyz456", "Attention is All You Need", "Vaswani et al.")
@@ -43,9 +45,10 @@ public class MockController {
             new MLModel(
                 3L,
                 "CNN",
+                "Convolutional Neural Network",
                 "画像認識に特化したネットワーク",
                 new Tag[]{
-                    new Tag(4L, "Vision", null, null)
+                    new Tag(4L, "Vision", "", null)
                 },
                 new Thesis[]{
                     new Thesis(3L, "10.1000/xyz789", "Convolutional Networks", "LeCun et al.")
@@ -63,9 +66,10 @@ public class MockController {
             new MLModel(
                 1L,
                 "GRU",
+                "Gated Recurrent Unit",
                 "コンパクトなLSTM",
                 new Tag[]{
-                    new Tag(1L, "RNN", null, null)
+                    new Tag(1L, "RNN", "Recurrent Neural Network", null)
                 },
                 new Thesis[]{
                     new Thesis(1L, "10.1000/xyz123", "Efficient GRU", "Author A, Author B")
@@ -75,10 +79,11 @@ public class MockController {
             new MLModel(
                 2L,
                 "Transformer",
+                "",
                 "Attentionによるシーケンス処理",
                 new Tag[]{
-                    new Tag(2L, "Attention", null, null),
-                    new Tag(3L, "NLP", null, null)
+                    new Tag(2L, "Attention", "", null),
+                    new Tag(3L, "NLP", "Natural Language Processing", null)
                 },
                 new Thesis[]{
                     new Thesis(2L, "10.1000/xyz456", "Attention is All You Need", "Vaswani et al.")
@@ -88,6 +93,7 @@ public class MockController {
             new MLModel(
                 3L,
                 "CNN",
+                "Convolutional neural network",
                 "画像認識に特化したネットワーク",
                 new Tag[]{
                     new Tag(4L, "Vision", null, null)
