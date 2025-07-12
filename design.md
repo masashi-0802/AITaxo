@@ -52,7 +52,7 @@
   - 編集
   - 削除
 
-<img width="50" src="README_assets/ui_design.jpg">
+<img width="100%" src="README_assets/ui_design.jpg">
 
 # リポジトリ構成
 - server
@@ -63,7 +63,7 @@
 - README.md
 
 # アーキテクチャ設計
-<img width="50" src="README_assets/architecture.jpg">
+<img width="100%" src="README_assets/architecture.jpg">
 
 # API
 - リクエスト
