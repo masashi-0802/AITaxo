@@ -2,11 +2,14 @@
 
 import { useEffect, useState } from 'react';
 
-import { Tag } from "@/app/types";
+import { MLModel, Tag } from "@/app/types";
 import { url } from '@/app/consts';
 
+type Props = {
+  setModels: (models: MLModel[]) => void;
+}
 
-export default function SearchForm() {
+export default function SearchForm({ setModels }: Props) {
   const [searchType, setSearchType] = useState<'name' | 'tag'>('name');
   const [name, setName] = useState('');
   const [tag, setTag] = useState('');
@@ -36,8 +39,7 @@ export default function SearchForm() {
     fetch(`${url}/mlmodels?${params}`)
       .then(res => res.json())
       .then(data => {
-        console.log('検索結果:', data);
-        // 必要なら検索結果を状態に保持して表示
+        setModels(data);
       });
   };
 

@@ -47,7 +47,7 @@ export default function ModelListPage() {
   return (
     <div>
       <h1>MLモデル一覧</h1>
-      <SearchForm />
+      <SearchForm setModels={setModels}/>
       {/* モデルの一覧表示 */}
       <ul className="grid grid-cols-2 md:grid-cols-1 gap-5">
         { 
