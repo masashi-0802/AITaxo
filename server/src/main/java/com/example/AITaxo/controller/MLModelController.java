@@ -1,17 +1,13 @@
-// server/src/main/java/com/example/aitaxo/controller/MLModelController.java
 package com.example.aitaxo.controller;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
-<<<<<<< HEAD
 import com.example.aitaxo.model.MLModel;
 import com.example.aitaxo.repository.MLModelRepository;
 import com.example.aitaxo.repository.TagRepository;
 import com.example.aitaxo.repository.PaperRepository;
 import reactor.core.publisher.Flux;
-=======
->>>>>>> 3588bbfd36ca56c959ec35e47a8f7dee37108e88
 
 @RestController
 // @RequestMapping("/mlmodels")
