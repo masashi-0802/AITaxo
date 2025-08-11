@@ -1,6 +1,7 @@
 package com.example.aitaxo.model;
 
 import jakarta.persistence.*;
+import com.example.aitaxo.model.Thesis;
 
 @Entity
 @Table(name = "tag")
@@ -32,6 +33,18 @@ public class Tag {
     public String getFullName() { return fullName; }
     public void setFullName(String fullName) { this.fullName = fullName; }
 
+    // ★ 元の関連getter/setterは Thesis 型のまま
     public Thesis getFirstThesis() { return firstThesis; }
     public void setFirstThesis(Thesis firstThesis) { this.firstThesis = firstThesis; }
+
+    // ★ 追加：DTO用の派生getter（スカラー）
+    @Transient
+    public Long getFirstThesisId() {
+        return firstThesis != null ? firstThesis.getId() : null;
+    }
+
+    @Transient
+    public String getFirstThesisTitle() {
+        return firstThesis != null ? firstThesis.getTitle() : null;
+    }    
 }
