@@ -1,11 +1,14 @@
 package com.example.aitaxo.service;
 
 import com.example.aitaxo.dto.MLModelDto;
+import com.example.aitaxo.model.MLModel;
 import com.example.aitaxo.model.Tag;
 import com.example.aitaxo.repository.MLModelRepository;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -63,5 +66,20 @@ public class MLModelService {
                 m.getTheses()
             ))
             .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public MLModelDto getById(Long id) {
+        MLModel m = repo.findByIdWithRelations(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "MLModel not found: " + id));
+
+        return new MLModelDto(
+                m.getId(),
+                m.getName(),
+                m.getFullName(),
+                m.getTags().stream().map(Tag::getName).toList(),
+                m.getExplain(),
+                m.getTheses()
+        );
     }
 }

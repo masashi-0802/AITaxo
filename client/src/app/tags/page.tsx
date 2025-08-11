@@ -28,7 +28,7 @@ export default function TagListPage() {
           <li key={tag.id} className="flex justify-between px-4 py-4 border rounded-2xl">
             <div className="flex-1 pr-4">
               <h3 className="text-xl font-bold">{tag.name}</h3>
-              <p>初出論文: {tag.firstThesis.title}</p>
+              <p>初出論文: {tag.firstThesisTitle}</p>
             </div>
 
             <Link href="/edit/tag">

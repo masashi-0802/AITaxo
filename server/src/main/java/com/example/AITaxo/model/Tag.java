@@ -1,7 +1,6 @@
 package com.example.aitaxo.model;
 
 import jakarta.persistence.*;
-import com.example.aitaxo.model.Thesis;
 
 @Entity
 @Table(name = "tag")

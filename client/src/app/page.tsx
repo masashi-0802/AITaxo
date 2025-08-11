@@ -64,7 +64,10 @@ export default function ModelListPage() {
                 } */}
               </div>
 
-              <Link href="/edit/mlmodel">
+              <Link href={{
+                pathname: "/edit/mlmodel",
+                query: { id: model.id }
+              }}>
                 <Image src={editImage} alt="edit" width="32" />
               </Link>
               <Link href="/remove/mlmodel">

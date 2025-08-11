@@ -52,6 +52,11 @@ public class MLModelController {
         }
     };
 
+    @GetMapping("/mlmodel")
+    public MLModelDto getById(@RequestParam Long id) {
+        return service.getById(id);
+    }
+
     // (2) 新規MLモデルの追加
     // @PostMapping("/create/mlmodels")
     // public MLModel createModel(@RequestBody CreateModelRequest req) {

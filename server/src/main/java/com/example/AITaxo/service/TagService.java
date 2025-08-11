@@ -1,9 +1,7 @@
 package com.example.aitaxo.service;
 
 import com.example.aitaxo.dto.TagDto;
-import com.example.aitaxo.model.Tag;
 import com.example.aitaxo.repository.TagRepository;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

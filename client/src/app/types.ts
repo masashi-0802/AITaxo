@@ -3,7 +3,8 @@ export type Tag = {
     id: number;
     name: string;
     fullName: string;
-    firstThesis: Thesis;
+    firstThesisId: number,
+    firstThesisTitle: string,
     mlmodel: MLModel;
 };
 export type Thesis = {

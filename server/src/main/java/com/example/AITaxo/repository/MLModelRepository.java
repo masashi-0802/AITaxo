@@ -1,10 +1,12 @@
 package com.example.aitaxo.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.aitaxo.model.MLModel;
@@ -37,4 +39,8 @@ public interface MLModelRepository extends JpaRepository<MLModel, Long> {
         WHERE th.title LIKE %:title%
         """)
     List<MLModel> findByThesisTitle(String title);
+
+    @EntityGraph(attributePaths = {"tags", "theses", "tags.firstThesis"})
+    @Query("select m from MLModel m where m.id = :id")
+    Optional<MLModel> findByIdWithRelations(@Param("id") Long id);
 }

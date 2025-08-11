@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import com.example.aitaxo.dto.TagDto;
 import com.example.aitaxo.model.Tag;
 
-import com.example.aitaxo.model.*;
 import java.util.List;
 
 @Repository
