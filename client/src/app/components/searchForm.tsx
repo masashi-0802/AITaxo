@@ -25,7 +25,15 @@ export default function SearchForm() {
     const nameParam = searchType === 'name' ? name : 'null';
     const tagParam = searchType === 'tag' ? tag : 'null';
 
-    fetch(`${url}/mlmodels/${nameParam}/${tagParam}`)
+    const params = new URLSearchParams();
+    if (searchType === 'name') {
+      params.append("name", name);
+    } else {
+      params.append("tag", tag);
+    }
+
+    console.log(`url: ${url}/mlmodels?${params}}`);
+    fetch(`${url}/mlmodels?${params}`)
       .then(res => res.json())
       .then(data => {
         console.log('検索結果:', data);

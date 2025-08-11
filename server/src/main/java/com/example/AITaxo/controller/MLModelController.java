@@ -46,7 +46,9 @@ public class MLModelController {
                     m.getFullName(),
                     m.getTags().stream()
                         .map(Tag::getName)
-                        .toList()
+                        .toList(),
+                    m.getExplain(),
+                    m.getTheses()
                 ))
                 .toList();
 
@@ -63,7 +65,9 @@ public class MLModelController {
                     m.getFullName(),
                     m.getTags().stream()
                         .map(Tag::getName)
-                        .toList()
+                        .toList(),
+                    m.getExplain(),
+                    m.getTheses()
                 ))
                 .toList();
 

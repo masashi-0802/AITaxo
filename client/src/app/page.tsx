@@ -57,9 +57,11 @@ export default function ModelListPage() {
               <div className="flex-1 pr-4">
                 <h3 className="text-xl font-bold">{model.name}</h3>
                 <p>{model.explain}</p>
-                <p>タグ: {model.tags.map(t => t.name).join(", ")}</p>
+                <p>タグ: {model.tags.join(", ")}</p>
                 <p>論文: {model.theses.map(t => t.title).join(", ")}</p>
+                {/* {
                 <p>資料: {model.presentations.join(", ")}</p>
+                } */}
               </div>
 
               <Link href="/edit/mlmodel">

@@ -27,6 +27,7 @@ INSERT INTO mlmodel_tag (mlmodel_id, tag_id) VALUES (2, 2);
 -- ===== 中間テーブル: MLModel-Thesis =====
 -- ResNet50 -> Thesis 1
 INSERT INTO mlmodel_thesis (mlmodel_id, thesis_id) VALUES (0, 0);
+INSERT INTO mlmodel_thesis (mlmodel_id, thesis_id) VALUES (0, 1);
 -- BERT-base -> Thesis 2
 INSERT INTO mlmodel_thesis (mlmodel_id, thesis_id) VALUES (1, 1);
 -- LightGBM -> Thesis 3
