@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/theses")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ThesisController {
     private final ThesisRepository thesisRepo;
 

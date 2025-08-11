@@ -29,6 +29,7 @@ export default function ThesisListPage() {
             <div className="flex-1 pr-4">
               <h3 className="text-xl font-bold">{thesis.title}</h3>
               <p>doi: {thesis.doi}</p>
+              <p>authors: {thesis.authors}</p>
             </div>
 
             <Link href="/edit/thesis">

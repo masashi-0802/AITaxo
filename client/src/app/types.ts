@@ -8,8 +8,9 @@ export type Tag = {
 };
 export type Thesis = {
     id: number;
-    title: string;
     doi: string;
+    title: string;
+    authors: string;
 };
 export type MLModel = { 
   id: number;
