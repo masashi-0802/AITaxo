@@ -65,10 +65,10 @@ export default function ModelListPage() {
               </div>
 
               <Link href="/edit/mlmodel">
-                <Image src={editImage} alt="edit" width="64" height="64" />
+                <Image src={editImage} alt="edit" width="32" />
               </Link>
               <Link href="/remove/mlmodel">
-                <Image src={removeImage} alt="remove" width="64" height="64" />
+                <Image src={removeImage} alt="remove" width="32" />
               </Link>
             </li>
           ))

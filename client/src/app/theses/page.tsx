@@ -33,10 +33,10 @@ export default function ThesisListPage() {
             </div>
 
             <Link href="/edit/thesis">
-              <Image src={editImage} alt="edit" width="64" height="64" />
+              <Image src={editImage} alt="edit" width="32" />
             </Link>
             <Link href="/remove/thesis">
-              <Image src={removeImage} alt="remove" width="64" height="64" />
+              <Image src={removeImage} alt="remove" width="32" />
             </Link>
           </li>
         ))}
