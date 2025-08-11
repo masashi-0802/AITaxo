@@ -11,6 +11,7 @@ import com.example.aitaxo.repository.TagRepository;
 import com.example.aitaxo.service.MLModelService;
 import com.example.aitaxo.repository.PaperRepository;
 import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 
 @RestController
@@ -38,46 +39,20 @@ public class MLModelController {
         @RequestParam(required=false) String tag,
         @RequestParam(required=false) String name
     ) {
-        if (tag != null && !tag.isEmpty()) {
-           List<MLModelDto> filtered = modelRepo.findByTagName(tag).stream()
-                .map(m -> new MLModelDto(
-                    m.getId(),
-                    m.getName(),
-                    m.getFullName(),
-                    m.getTags().stream()
-                        .map(Tag::getName)
-                        .toList(),
-                    m.getExplain(),
-                    m.getTheses()
-                ))
-                .toList();
-
-            return filtered.isEmpty()
-                ? Flux.empty()
-                : Flux.fromIterable(filtered);
-        }
-
-        if (name != null && !name.isEmpty()) {
-           List<MLModelDto> filtered = modelRepo.findByNameContaining(name).stream()
-                .map(m -> new MLModelDto(
-                    m.getId(),
-                    m.getName(),
-                    m.getFullName(),
-                    m.getTags().stream()
-                        .map(Tag::getName)
-                        .toList(),
-                    m.getExplain(),
-                    m.getTheses()
-                ))
-                .toList();
-
-            return filtered.isEmpty()
-                ? Flux.empty()
-                : Flux.fromIterable(filtered);
-        }
-        return Flux.defer(() -> Flux.fromIterable(service.list()))
+        List<MLModelDto> dtos = getDtos(tag, name);
+        return Flux.defer(() -> Flux.fromIterable(dtos))
                    .subscribeOn(Schedulers.boundedElastic());
     }
+
+    private List<MLModelDto> getDtos(String tag, String name) {
+        if (tag != null && !tag.isEmpty()) {
+            return service.findByTagName(tag);
+        } else if (name != null && !name.isEmpty()) {
+            return service.findByName(name);
+        } else {
+            return service.findAll();
+        }
+    };
 
     // (2) 新規MLモデルの追加
     // @PostMapping("/create/mlmodels")
