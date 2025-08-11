@@ -3,11 +3,15 @@ package com.example.aitaxo.controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
-import com.example.aitaxo.model.MLModel;
+
+import com.example.aitaxo.dto.MLModelDto;
+import com.example.aitaxo.model.Tag;
 import com.example.aitaxo.repository.MLModelRepository;
 import com.example.aitaxo.repository.TagRepository;
+import com.example.aitaxo.service.MLModelService;
 import com.example.aitaxo.repository.PaperRepository;
 import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Schedulers;
 
 @RestController
 // @RequestMapping("/mlmodels")
@@ -22,21 +26,53 @@ public class MLModelController {
     @Autowired
     private PaperRepository paperRepo;
 
+    private final MLModelService service;
+    
+    public MLModelController(MLModelService service) {
+        this.service = service;
+    }
+    
     // (1) 全MLモデルの取得 + フィルタ（タグ名 or モデル名による絞り込み）
     @GetMapping("/mlmodels")
-    public Flux<Object> getModels(@RequestParam(required=false) String tag,
-                                   @RequestParam(required=false) String name) {
+    public Flux<MLModelDto> getModels(
+        @RequestParam(required=false) String tag,
+        @RequestParam(required=false) String name
+    ) {
         if (tag != null && !tag.isEmpty()) {
-           List<MLModel> filtered = modelRepo.findByTags_Name(tag);
-           return filtered.isEmpty() ? Flux.empty() : Flux.fromIterable(filtered);
+           List<MLModelDto> filtered = modelRepo.findByTagName(tag).stream()
+                .map(m -> new MLModelDto(
+                    m.getId(),
+                    m.getName(),
+                    m.getFullName(),
+                    m.getTags().stream()
+                        .map(Tag::getName)
+                        .toList()
+                ))
+                .toList();
+
+            return filtered.isEmpty()
+                ? Flux.empty()
+                : Flux.fromIterable(filtered);
         }
 
         if (name != null && !name.isEmpty()) {
-           List<MLModel> filtered = modelRepo.findByNameContaining(name);
-           return filtered.isEmpty() ? Flux.empty() : Flux.fromIterable(filtered);
+           List<MLModelDto> filtered = modelRepo.findByNameContaining(name).stream()
+                .map(m -> new MLModelDto(
+                    m.getId(),
+                    m.getName(),
+                    m.getFullName(),
+                    m.getTags().stream()
+                        .map(Tag::getName)
+                        .toList()
+                ))
+                .toList();
+
+            return filtered.isEmpty()
+                ? Flux.empty()
+                : Flux.fromIterable(filtered);
         }
-        // フィルタなし：全件返す
-        return Flux.fromIterable(modelRepo.findAll());
+        return Flux.defer(() -> Flux.fromIterable(service.list()))
+                   .subscribeOn(Schedulers.boundedElastic());
     }
 
     // (2) 新規MLモデルの追加

@@ -3,56 +3,35 @@ package com.example.aitaxo.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "tag")
 public class Tag {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(name = "full_name")
     private String fullName;
 
-    @ManyToOne
+    // first_thesis_id -> thesis(id)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "first_thesis_id",
+                foreignKey = @ForeignKey(name = "fk_tag_first_thesis"))
     private Thesis firstThesis;
 
-    public Tag() {
+    // ---- getter / setter ----
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public Tag(Long id, String name, Thesis firstThesis, String fullName) {
-        this.id = id;
-        this.name = name;
-        this.firstThesis = firstThesis;
-        this.fullName = fullName;
-    }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Thesis getFirstThesis() {
-        return firstThesis;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setFirstThesis(Thesis firstThesis) {
-        this.firstThesis = firstThesis;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
+    public Thesis getFirstThesis() { return firstThesis; }
+    public void setFirstThesis(Thesis firstThesis) { this.firstThesis = firstThesis; }
 }

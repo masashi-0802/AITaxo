@@ -1,100 +1,64 @@
 package com.example.aitaxo.model;
 
 import jakarta.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
+@Table(name = "ml_model")
 public class MLModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(name = "full_name")
     private String fullName;
 
-    @Column(length = 1000)
+    @Column(name = "explain", length = 1000)
     private String explain;
 
-    // 多対多は使えないため、JPA管理外の構造に変更（@ManyToMany削除）
-    // @Transient
+    // 多対多: mlmodel_tag (mlmodel_id, tag_id)
     @ManyToMany
-    private Tag[] tags;
+    @JoinTable(
+        name = "mlmodel_tag",
+        joinColumns = @JoinColumn(name = "mlmodel_id",
+                                  foreignKey = @ForeignKey(name = "fk_mlmodeltag_mlmodel")),
+        inverseJoinColumns = @JoinColumn(name = "tag_id",
+                                         foreignKey = @ForeignKey(name = "fk_mlmodeltag_tag"))
+    )
+    private Set<Tag> tags = new LinkedHashSet<>();
 
-    // @Transient
+    // 多対多: mlmodel_thesis (mlmodel_id, thesis_id)
     @ManyToMany
-    private Thesis[] theses;
+    @JoinTable(
+        name = "mlmodel_thesis",
+        joinColumns = @JoinColumn(name = "mlmodel_id",
+                                  foreignKey = @ForeignKey(name = "fk_mlmodelthesis_mlmodel")),
+        inverseJoinColumns = @JoinColumn(name = "thesis_id",
+                                         foreignKey = @ForeignKey(name = "fk_mlmodelthesis_thesis"))
+    )
+    private Set<Thesis> theses = new LinkedHashSet<>();
 
-    private String[] presentations;
+    // ---- getter / setter ----
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public MLModel() {
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public MLModel(Long id, String name, String fullName, String explain, Tag[] tags, Thesis[] theses, String[] presentations) {
-        this.id = id;
-        this.name = name;
-        this.fullName = fullName;
-        this.explain = explain;
-        this.tags = tags;
-        this.theses = theses;
-        this.presentations = presentations;
-    }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
-    // ====== Getters / Setters ======
+    public String getExplain() { return explain; }
+    public void setExplain(String explain) { this.explain = explain; }
 
-    public Long getId() {
-        return id;
-    }
+    public Set<Tag> getTags() { return tags; }
+    public void setTags(Set<Tag> tags) { this.tags = tags; }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public String getExplain() {
-        return explain;
-    }
-
-    public Tag[] getTags() {
-        return tags;
-    }
-
-    public Thesis[] getTheses() {
-        return theses;
-    }
-
-    public String[] getPresentations() {
-        return presentations;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public void setExplain(String explain) {
-        this.explain = explain;
-    }
-
-    public void setTags(Tag[] tags) {
-        this.tags = tags;
-    }
-
-    public void setTheses(Thesis[] theses) {
-        this.theses = theses;
-    }
-
-    public void setPresentations(String[] presentations) {
-        this.presentations = presentations;
-    }
-}    
+    public Set<Thesis> getTheses() { return theses; }
+    public void setTheses(Set<Thesis> theses) { this.theses = theses; }
+}
