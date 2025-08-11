@@ -7,6 +7,6 @@ import com.example.aitaxo.model.*;
 import java.util.List;
 
 @Repository
-public interface PaperRepository extends JpaRepository<Thesis, Long> {
+public interface ThesisRepository extends JpaRepository<Thesis, Long> {
     List<Thesis> findByTitleContaining(String title);
 }

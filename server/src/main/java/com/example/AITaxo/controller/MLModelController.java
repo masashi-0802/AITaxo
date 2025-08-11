@@ -5,13 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import com.example.aitaxo.dto.MLModelDto;
-import com.example.aitaxo.model.Tag;
 import com.example.aitaxo.repository.MLModelRepository;
 import com.example.aitaxo.repository.TagRepository;
 import com.example.aitaxo.service.MLModelService;
-import com.example.aitaxo.repository.PaperRepository;
+import com.example.aitaxo.repository.ThesisRepository;
 import reactor.core.publisher.Flux;
-import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 
 @RestController
@@ -25,7 +23,7 @@ public class MLModelController {
     @Autowired
     private TagRepository tagRepo;
     @Autowired
-    private PaperRepository paperRepo;
+    private ThesisRepository paperRepo;
 
     private final MLModelService service;
     
